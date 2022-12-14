@@ -2,29 +2,21 @@ package com.example.zadanie2_4
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    lateinit var firstFragment: FirstFragment
-    lateinit var secondFragment: SecondFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        firstFragment = FirstFragment.newInstance()
-        secondFragment = SecondFragment.newInstance()
-    }
-
-    fun switchToFirstFragment(){
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, firstFragment)
-            .commit()
-    }
-
-    fun switchToSecondFragment(){
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, secondFragment)
-            .commit()
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = NavHostFragment.findNavController(navHostFragment)
+        val bootomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bootomNavigation.setupWithNavController(navController)
     }
 }
